@@ -15,7 +15,8 @@ const forecast = (lon, lat, callback) => {
             callback(undefined, {
                 forecastData: body.current.weather_descriptions[0] + 
                 '. It is currently ' + body.current.temperature + 
-                ' degrees Celcius out. It feels like ' + body.current.feelslike
+                ' degrees Celcius out. It feels like ' + body.current.feelslike + 
+                '. UV is index is at ' + body.current.uv_index + '.'
             })
         }
     })

@@ -51,24 +51,40 @@ app.get('/weather', (req, res) => {
         })
     }
 
-    geoCode(req.query.address, (error, {lon, lat, place_name} = {}) => {
-        if (error) {
-            return res.send({ error })
-        } else {
-            forecast(lon, lat, (error, {forecastData} = {}) => {
-                if (error) {
-                    return res.send({ error })
-                } 
-                
-                res.send({
-                    forecastData,
-                    location: place_name,
-                    address: req.query.address
-                })
-                
+    if (req.query.coords) {
+        const [lat, lon] = req.query.address.split(',')
+        forecast(lon, lat, (error, {forecastData} = {}) => {
+            if (error) {
+                return res.send({ error })
+            } 
+            
+            res.send({
+                forecastData,
+                location: 'Current Loction',
+                address: req.query.address
             })
-        }
-    })
+            
+        })
+    } else {
+        geoCode(req.query.address, (error, {lon, lat, place_name} = {}) => {
+            if (error) {
+                return res.send({ error })
+            } else {
+                forecast(lon, lat, (error, {forecastData} = {}) => {
+                    if (error) {
+                        return res.send({ error })
+                    } 
+                    
+                    res.send({
+                        forecastData,
+                        location: place_name,
+                        address: req.query.address
+                    })
+                    
+                })
+            }
+        })
+    }  
 })
 
 

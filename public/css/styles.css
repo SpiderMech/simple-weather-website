@@ -46,10 +46,15 @@ input {
     padding: 8px;
 }
 
+form {
+    display: inline;
+}
+
 button {
     cursor: pointer;
     border: 1px solid #888888;
     background: #888888;
     color: white;
     padding: 8px;
+    display: inline-block;
 }
